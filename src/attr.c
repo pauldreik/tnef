@@ -276,7 +276,7 @@ attr_read (FILE* in)
         {
             fprintf (stderr,
                  "ERROR: invalid checksum, input file may be corrupted\n");
-            exit( 1 );
+            fuzzexit( 1 );
         }
     }
 

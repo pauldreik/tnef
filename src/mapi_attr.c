@@ -331,14 +331,14 @@ mapi_attr_read (size_t len, unsigned char *buf)
             case szMAPI_UNSPECIFIED:
                 fprintf (stderr,
                          "Invalid attribute, input file may be corrupted\n");
-                if (!ENCODE_SKIP) exit (1);
+                if (!ENCODE_SKIP) fuzzexit (1);
 
                 return NULL;
 
             default:		/* should never get here */
                 fprintf (stderr,
                          "Undefined attribute, input file may be corrupted\n");
-                if (!ENCODE_SKIP) exit (1);
+                if (!ENCODE_SKIP) fuzzexit (1);
 
                 return NULL;
 

@@ -27,10 +27,11 @@
 #endif /* HAVE_CONFIG_H */
 
 #include "common.h"
+#include "fuzzexit.h"
 
-#define CHECKINT32(a, b) { if(a+4 > b){ exit(-1); } }
-#define CHECKINT16(a, b) { if(a+2 > b){ exit(-1); } }
-#define CHECKINT8(a, b) { if(a+1 > b){ exit(-1); } }
+#define CHECKINT32(a, b) { if(a+4 > b){ fuzzexit(-1); } }
+#define CHECKINT16(a, b) { if(a+2 > b){ fuzzexit(-1); } }
+#define CHECKINT8(a, b) { if(a+1 > b){ fuzzexit(-1); } }
 
 extern uint32 GETINT32(unsigned char*p);
 extern uint16 GETINT16(unsigned char*p);

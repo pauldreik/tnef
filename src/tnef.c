@@ -205,7 +205,7 @@ data_left (FILE* input_file)
                     if ( c < 0 )	/* this should never happen */
                     {
                         fprintf( stderr, "ERROR: confused beyond all redemption.\n" );
-                        exit (1);
+                        fuzzexit (1);
                     }
 
                     ungetc( c, input_file );

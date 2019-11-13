@@ -26,7 +26,8 @@
 #  include "config.h"
 #endif
 
-#include <assert.h>
+//#include <assert.h>
+#include <fuzzassert.h>
 #include <stdio.h>
 
 #if STDC_HEADERS
@@ -45,6 +46,7 @@ extern char *strcpy (char *, const char *);
 extern char *strcat (char *, const char *);
 extern void abort (void);
 extern void exit (int);
+#include "fuzzexit.h"
 extern void* memset (void* ptr, int c, size_t size);
 extern void* malloc (size_t size);
 #  if !HAVE_MEMMOVE

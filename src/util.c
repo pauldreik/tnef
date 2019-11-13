@@ -51,7 +51,7 @@ getbuf (FILE *fp, unsigned char buf[], size_t n)
     if (fread (buf, 1, n, fp) != n)
     {
         perror ("Unexpected end of input");
-        exit (1);
+        fuzzexit (1);
     }
     return buf;
 }

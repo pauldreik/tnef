@@ -118,19 +118,20 @@ file_write (File *file, const char* directory)
                 }
             }
         }
-
+#if 0
         fp = fopen (path, "wb");
         if (fp == NULL)
         {
             perror (path);
-            exit (1);
+            fuzzexit (1);
         }
         if (fwrite (file->data, 1, file->len, fp) != file->len)
         {
             perror (path);
-            exit (1);
+            fuzzexit (1);
         }
         fclose (fp);
+#endif
     }
 
     if (LIST_ONLY || VERBOSE_ON)

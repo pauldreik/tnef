@@ -49,6 +49,8 @@
 #include "tnef.h"
 #include "options.h"
 
+#include "fuzzexit.h"
+
 /* COPYRIGHTS & NO_WARRANTY -- defined to make code below a little nicer to
    read */
 static const char NO_WARRANTY[] = \
@@ -256,7 +258,7 @@ parse_cmdline (int argc, char **argv,
             fprintf (stderr, "\n");
             fprintf (stderr, NO_WARRANTY, PACKAGE_NAME, PACKAGE_NAME);
             fprintf (stderr, "\n");
-            exit (0);
+            fuzzexit (0);
             break;
 
         case 'v':
@@ -281,7 +283,7 @@ parse_cmdline (int argc, char **argv,
                     fprintf (stderr,
                              "Invalid argument to --maxsize/-x option: '%s'\n",
                              optarg);
-                    exit (-1);
+                    fuzzexit (-1);
                 }
                 if (0 > ((int32)(*max_size)))
                 {
@@ -293,7 +295,7 @@ parse_cmdline (int argc, char **argv,
 
         case 'h':
             usage(argv[0]);
-            exit (0);
+            fuzzexit (0);
             break;
 
         case 't':
@@ -310,7 +312,7 @@ parse_cmdline (int argc, char **argv,
 
         case '?':
             fprintf (stderr, "Try '%s --help' for more info.\n", argv[0]);
-            exit (1);
+            fuzzexit (1);
             break;
 
         default:
@@ -362,7 +364,7 @@ main (int argc, char *argv[])
         if (fp == NULL)
         {
             perror (in_file);
-            exit (1);
+            fuzzexit (1);
         }
     }
     else
@@ -375,7 +377,7 @@ main (int argc, char *argv[])
         fprintf (stderr,
                  "Cannot read file from STDIN and use "
                  "interactive mode at the same time.\n");
-        exit (1);
+        fuzzexit (1);
     }
     int ret = parse_file (fp, out_dir, body_file, body_pref, flags);
     XFREE(body_pref);

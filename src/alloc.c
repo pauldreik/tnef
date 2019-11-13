@@ -26,12 +26,15 @@
 #include "common.h"
 #include "alloc.h"
 
-static size_t alloc_limit = 0;
+#include "fuzzexit.h"
+
+static size_t alloc_limit = 100000;
 
 void
 set_alloc_limit (size_t size)
 {
-    alloc_limit = size;
+  // fuzz - ignore the limit
+  //alloc_limit = size;
 }
 
 size_t
@@ -70,7 +73,7 @@ alloc_limit_assert (char *fn_name, size_t size)
     if (alloc_limit && size > alloc_limit)
     {
         alloc_limit_failure (fn_name, size);
-        exit (-1);
+        fuzzexit (-1);
     }
 }
 
@@ -80,15 +83,15 @@ xmalloc (size_t num, size_t size, size_t extra)
 {
     size_t res;
     if (check_mul_overflow(num, size, &res))
-        abort();
+        fuzzabort();
     if (res + extra < res)
-        abort();
+        fuzzabort();
     void *ptr = malloc (res + extra);
     if (!ptr
         && (size != 0))         /* some libc don't like size == 0 */
     {
         perror ("xmalloc: Memory allocation failure");
-        abort();
+        fuzzabort();
     }
     return ptr;
 }
@@ -99,9 +102,9 @@ checked_xmalloc (size_t num, size_t size, size_t extra)
 {
     size_t res;
     if (check_mul_overflow(num, size, &res))
-        abort();
+        fuzzabort();
     if (res + extra < res)
-        abort();
+        fuzzabort();
     alloc_limit_assert ("checked_xmalloc", res);
     return xmalloc (num, size, extra);
 }
@@ -112,11 +115,11 @@ xcalloc (size_t num, size_t size, size_t extra)
 {
     size_t res;
     if (check_mul_overflow(num, size, &res))
-        abort();
+        fuzzabort();
 
     void *ptr;
     if (res + extra < res)
-        abort();
+        fuzzabort();
     ptr = malloc(res + extra);
     if (ptr)
     {
@@ -131,7 +134,7 @@ checked_xcalloc (size_t num, size_t size, size_t extra)
 {
     size_t res;
     if (check_mul_overflow(num, size, &res))
-        abort();
+        fuzzabort();
 
     alloc_limit_assert ("checked_xcalloc", (res));
     return xcalloc (num, size, extra);
